@@ -58,7 +58,7 @@ const Board = function (size = 3) {
 
 		while (row >= 0) {
 			if (this.cells[row][col].value === playersToken) {
-				console.log("masuk atas");
+				// console.log("masuk atas");
 				counter++;
 			} else break;
 			row--;
@@ -67,12 +67,12 @@ const Board = function (size = 3) {
 		row = position[0] + 1;
 		while (row < this.cells.length) {
 			if (this.cells[row][col].value === playersToken) {
-				console.log("masuk bawah");
+				// console.log("masuk bawah");
 				counter++;
 			} else break;
 			row++;
 		}
-		console.log("counter is", counter);
+		// console.log("counter is", counter);
 		if (counter === this.cells.length) {
 			winner = player;
 			gameOver = true;
@@ -88,7 +88,7 @@ const Board = function (size = 3) {
 
 		while (col >= 0) {
 			if (this.cells[row][col].value === playersToken) {
-				console.log("row check masuk atas");
+				// console.log("row check masuk atas");
 				counter++;
 			} else break;
 			col--;
@@ -97,12 +97,12 @@ const Board = function (size = 3) {
 		col = position[1] + 1;
 		while (col < this.cells.length) {
 			if (this.cells[row][col].value === playersToken) {
-				console.log("row check masuk bawah");
+				// console.log("row check masuk bawah");
 				counter++;
 			} else break;
 			col++;
 		}
-		console.log("counter is", counter);
+		// console.log("counter is", counter);
 		if (counter === this.cells.length) {
 			winner = player;
 			gameOver = true;
@@ -118,7 +118,7 @@ const Board = function (size = 3) {
 
 		while (row >= 0 && col >= 0) {
 			if (this.cells[row][col].value === playersToken) {
-				console.log("diagA check masuk atas");
+				// console.log("diagA check masuk atas");
 				counter++;
 			} else break;
 			row--;
@@ -129,13 +129,13 @@ const Board = function (size = 3) {
 		col = position[1] + 1;
 		while (row < this.cells.length && col < this.cells.length) {
 			if (this.cells[row][col].value === playersToken) {
-				console.log("diagA check masuk bawah");
+				// console.log("diagA check masuk bawah");
 				counter++;
 			} else break;
 			row++;
 			col++;
 		}
-		console.log("counter is", counter);
+		// console.log("counter is", counter);
 		if (counter === this.cells.length) {
 			winner = player;
 			gameOver = true;
@@ -151,7 +151,7 @@ const Board = function (size = 3) {
 
 		while (row >= 0 && col < this.cells.length) {
 			if (this.cells[row][col].value === playersToken) {
-				console.log("diagB check masuk atas");
+				// console.log("diagB check masuk atas");
 				counter++;
 			} else break;
 			row--;
@@ -162,13 +162,13 @@ const Board = function (size = 3) {
 		col = position[1] - 1;
 		while (row < this.cells.length && col >= 0) {
 			if (this.cells[row][col].value === playersToken) {
-				console.log("diagA check masuk bawah");
+				// console.log("diagA check masuk bawah");
 				counter++;
 			} else break;
 			row++;
 			col--;
 		}
-		console.log("counter is", counter);
+		// console.log("counter is", counter);
 		if (counter === this.cells.length) {
 			winner = player;
 			gameOver = true;
