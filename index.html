@@ -12,6 +12,31 @@
 	<body>
 		<h1>Tic Tac Toe</h1>
 		<h2 id="label">Your Turn: <span id="player"></span></h2>
+		<button id="restart-button">Restart</button>
 		<div class="container"></div>
+		<div id="popup-display">
+			<div id="info-display">
+				<h2 class="board-size">Please select the board size</h2>
+				<div id="grid-buttons" class="board-size">
+					<div>
+						<input type="radio" name="board-size" id="board3" />
+						<label for="board3">3 x 3</label>
+					</div>
+					<div>
+						<input type="radio" name="board-size" id="board4" />
+						<label for="board4">4 x 4</label>
+					</div>
+					<div>
+						<input type="radio" name="board-size" id="board5" />
+						<label for="board5">5 x 5</label>
+					</div>
+					<div>
+						<input type="radio" name="board-size" id="board6" />
+						<label for="board6">6 x 6</label>
+					</div>
+				</div>
+				<button class="board-size" id="start-button">Start</button>
+			</div>
+		</div>
 	</body>
 </html>

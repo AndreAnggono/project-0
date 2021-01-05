@@ -33,13 +33,28 @@ const Board = function (size = 3) {
 	}
 
 	this.print = function () {
-		for (let rows of this.cells) {
-			let row = [];
-			for (let col of rows) {
-				row.push(col.value);
+		// for (let rows of this.cells) {
+		// 	let row = [];
+		// 	for (let col of rows) {
+		// 		row.push(col.value);
+		// 	}
+		// 	console.log(row.join(" | "));
+		// }
+		const container = $(".container");
+		const table = $("<table></table>");
+
+		for (let i = 0; i < boardSize; i++) {
+			const tableRow = $("<tr></tr>");
+			for (let j = 0; j < boardSize; j++) {
+				tableRow.append(
+					$("<td></td>")
+						.attr({ id: `c${i}${j}`, class: "cell" })
+						.text(` `)
+				);
 			}
-			console.log(row.join(" | "));
+			table.append(tableRow);
 		}
+		container.append(table);
 	};
 
 	this.check = function (cell, player) {
@@ -177,11 +192,12 @@ const Board = function (size = 3) {
 };
 
 ////////
-let boardSize = Number(prompt("Enter Board Size 3 - 6: (default 3)"));
-boardSize = !boardSize ? 3 : boardSize;
+// let boardSize = Number(prompt("Enter Board Size 3 - 6: (default 3)"));
+let boardSize, timeOut;
+// boardSize = !boardSize || boardSize < 3 ? 3 : boardSize > 6 ? 6 : boardSize;
 
 let gameOver = false;
-const board = new Board(boardSize);
+let board = new Board(boardSize);
 // const numOfTurns = board.cells.length ** 2;
 let turnCounter = 0;
 let winner = "";
@@ -205,9 +221,15 @@ const isGameOver = function () {
 	if (gameOver) {
 		$(".cell").off("click").removeClass("cell");
 		$("#label").text(`WINNER: ${players[winner].name}`).addClass("winner");
+		timeOut = setTimeout(function () {
+			$("#popup-display").show();
+		}, 10000);
 	} else if (turnCounter === boardSize ** 2) {
 		$(".cell").off("click").removeClass("cell");
 		$("#label").text("It's a draw!").addClass("draw");
+		timeOut = setTimeout(function () {
+			$("#popup-display").show();
+		}, 10000);
 	}
 };
 

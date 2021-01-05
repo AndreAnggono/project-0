@@ -1,10 +1,25 @@
 let currPlayer, $player, cPlayer;
 
 $(document).ready(function () {
-	$player = $("#player");
-	printBoard();
-	turn();
+	$("#start-button").on("click", function () {
+		const boardSizeButton = $('input[name="board-size"]:checked')[0].id;
+		boardSize = Number(boardSizeButton.slice(-1));
+		$("#popup-display").hide();
+		// $player = $("#player");
+		// printBoard();
+		// turn();
+		// main();
+		restart();
+	});
 
+	$("#restart-button").on("click", function () {
+		console.log(timeOut);
+		clearTimeout(timeOut);
+		restart();
+	});
+});
+
+const main = function () {
 	$(".cell").on("click", function () {
 		console.log(this.id.slice(1), players[cPlayer].name);
 		$(this).text(players[cPlayer].token).off("click").removeClass("cell");
@@ -12,7 +27,22 @@ $(document).ready(function () {
 		isGameOver();
 		turn();
 	});
-});
+};
+
+const restart = function () {
+	$("table").remove();
+	board = new Board(boardSize);
+	// printBoard();
+	board.print();
+	gameOver = false;
+	turnCounter = 0;
+	winner = "";
+	currPlayer = "";
+	$("#label").html('Your Turn: <span id="player"></span>').removeClass();
+	$player = $("#player");
+	turn();
+	main();
+};
 
 const turn = function () {
 	if (currPlayer === players.p1.name) {
