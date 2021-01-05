@@ -5,23 +5,18 @@ $(document).ready(function () {
 		const boardSizeButton = $('input[name="board-size"]:checked')[0].id;
 		boardSize = Number(boardSizeButton.slice(-1));
 		$("#popup-display").hide();
-		// $player = $("#player");
-		// printBoard();
-		// turn();
-		// main();
-		restart();
+		start();
 	});
 
 	$("#restart-button").on("click", function () {
-		console.log(timeOut);
 		clearTimeout(timeOut);
-		restart();
+		start();
 	});
 });
 
 const main = function () {
 	$(".cell").on("click", function () {
-		console.log(this.id.slice(1), players[cPlayer].name);
+		// console.log(this.id.slice(1), players[cPlayer].name);
 		$(this).text(players[cPlayer].token).off("click").removeClass("cell");
 		move(this.id.slice(1).split(""), cPlayer);
 		isGameOver();
@@ -29,17 +24,17 @@ const main = function () {
 	});
 };
 
-const restart = function () {
+const start = function () {
 	$("table").remove();
 	board = new Board(boardSize);
+	$("#label").html('Your Turn: <span id="player"></span>').removeClass();
+	$player = $("#player");
 	// printBoard();
 	board.print();
 	gameOver = false;
 	turnCounter = 0;
 	winner = "";
 	currPlayer = "";
-	$("#label").html('Your Turn: <span id="player"></span>').removeClass();
-	$player = $("#player");
 	turn();
 	main();
 };
@@ -56,22 +51,20 @@ const turn = function () {
 	$player.text(currPlayer);
 };
 
-const printBoard = function () {
-	const container = $(".container");
-	const table = $("<table></table>");
+// const printBoard = function () {
+// 	const container = $(".container");
+// 	const table = $("<table></table>");
 
-	for (let i = 0; i < boardSize; i++) {
-		const tableRow = $("<tr></tr>");
-		for (let j = 0; j < boardSize; j++) {
-			tableRow.append(
-				$("<td></td>")
-					.attr({ id: `c${i}${j}`, class: "cell" })
-					.text(` `)
-			);
-		}
-		table.append(tableRow);
-	}
-	container.append(table);
-};
-
-// console.log(boardSize);
+// 	for (let i = 0; i < boardSize; i++) {
+// 		const tableRow = $("<tr></tr>");
+// 		for (let j = 0; j < boardSize; j++) {
+// 			tableRow.append(
+// 				$("<td></td>")
+// 					.attr({ id: `c${i}${j}`, class: "cell" })
+// 					.text(` `)
+// 			);
+// 		}
+// 		table.append(tableRow);
+// 	}
+// 	container.append(table);
+// };

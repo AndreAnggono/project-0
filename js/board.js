@@ -70,10 +70,11 @@ const Board = function (size = 3) {
 		let row = position[0] - 1;
 		const col = position[1];
 		const playersToken = players[player].token;
+		const winPosition = [[`${cell.join("")}`]];
 
 		while (row >= 0) {
 			if (this.cells[row][col].value === playersToken) {
-				// console.log("masuk atas");
+				winPosition.push(`${row}${col}`);
 				counter++;
 			} else break;
 			row--;
@@ -82,13 +83,16 @@ const Board = function (size = 3) {
 		row = position[0] + 1;
 		while (row < this.cells.length) {
 			if (this.cells[row][col].value === playersToken) {
-				// console.log("masuk bawah");
+				winPosition.push(`${row}${col}`);
 				counter++;
 			} else break;
 			row++;
 		}
 		// console.log("counter is", counter);
 		if (counter === this.cells.length) {
+			for (let cell of winPosition) {
+				$(`#c${cell}`).animate({ backgroundColor: "#3ff289" }, 2000);
+			}
 			winner = player;
 			gameOver = true;
 		}
@@ -100,10 +104,11 @@ const Board = function (size = 3) {
 		const row = position[0];
 		let col = position[1] - 1;
 		const playersToken = players[player].token;
+		const winPosition = [[`${cell.join("")}`]];
 
 		while (col >= 0) {
 			if (this.cells[row][col].value === playersToken) {
-				// console.log("row check masuk atas");
+				winPosition.push(`${row}${col}`);
 				counter++;
 			} else break;
 			col--;
@@ -112,13 +117,16 @@ const Board = function (size = 3) {
 		col = position[1] + 1;
 		while (col < this.cells.length) {
 			if (this.cells[row][col].value === playersToken) {
-				// console.log("row check masuk bawah");
+				winPosition.push(`${row}${col}`);
 				counter++;
 			} else break;
 			col++;
 		}
 		// console.log("counter is", counter);
 		if (counter === this.cells.length) {
+			for (let cell of winPosition) {
+				$(`#c${cell}`).animate({ backgroundColor: "#3ff289" }, 2000);
+			}
 			winner = player;
 			gameOver = true;
 		}
@@ -130,10 +138,11 @@ const Board = function (size = 3) {
 		let row = position[0] - 1;
 		let col = position[1] - 1;
 		const playersToken = players[player].token;
+		const winPosition = [[`${cell.join("")}`]];
 
 		while (row >= 0 && col >= 0) {
 			if (this.cells[row][col].value === playersToken) {
-				// console.log("diagA check masuk atas");
+				winPosition.push(`${row}${col}`);
 				counter++;
 			} else break;
 			row--;
@@ -144,14 +153,17 @@ const Board = function (size = 3) {
 		col = position[1] + 1;
 		while (row < this.cells.length && col < this.cells.length) {
 			if (this.cells[row][col].value === playersToken) {
-				// console.log("diagA check masuk bawah");
+				winPosition.push(`${row}${col}`);
 				counter++;
 			} else break;
 			row++;
 			col++;
 		}
-		// console.log("counter is", counter);
+
 		if (counter === this.cells.length) {
+			for (let cell of winPosition) {
+				$(`#c${cell}`).animate({ backgroundColor: "#3ff289" }, 2000);
+			}
 			winner = player;
 			gameOver = true;
 		}
@@ -163,10 +175,11 @@ const Board = function (size = 3) {
 		let row = position[0] - 1;
 		let col = position[1] + 1;
 		const playersToken = players[player].token;
+		const winPosition = [[`${cell.join("")}`]];
 
 		while (row >= 0 && col < this.cells.length) {
 			if (this.cells[row][col].value === playersToken) {
-				// console.log("diagB check masuk atas");
+				winPosition.push(`${row}${col}`);
 				counter++;
 			} else break;
 			row--;
@@ -177,14 +190,17 @@ const Board = function (size = 3) {
 		col = position[1] - 1;
 		while (row < this.cells.length && col >= 0) {
 			if (this.cells[row][col].value === playersToken) {
-				// console.log("diagA check masuk bawah");
+				winPosition.push(`${row}${col}`);
 				counter++;
 			} else break;
 			row++;
 			col--;
 		}
-		// console.log("counter is", counter);
+
 		if (counter === this.cells.length) {
+			for (let cell of winPosition) {
+				$(`#c${cell}`).animate({ backgroundColor: "#3ff289" }, 2000);
+			}
 			winner = player;
 			gameOver = true;
 		}
@@ -193,14 +209,14 @@ const Board = function (size = 3) {
 
 ////////
 // let boardSize = Number(prompt("Enter Board Size 3 - 6: (default 3)"));
-let boardSize, timeOut;
-// boardSize = !boardSize || boardSize < 3 ? 3 : boardSize > 6 ? 6 : boardSize;
 
-let gameOver = false;
-let board = new Board(boardSize);
+// boardSize = !boardSize || boardSize < 3 ? 3 : boardSize > 6 ? 6 : boardSize;
+let board, boardSize, timeOut, winner, gameOver, turnCounter;
+// let gameOver = false;
+// let board = new Board(boardSize);
+// let turnCounter = 0;
+// let winner = "";
 // const numOfTurns = board.cells.length ** 2;
-let turnCounter = 0;
-let winner = "";
 
 const move = function (index, player) {
 	// console.log(index);
