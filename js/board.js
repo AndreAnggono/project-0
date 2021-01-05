@@ -1,17 +1,23 @@
 // Players object to store player symbol / token.
 const players = {
-	p1: "X",
-	p2: "O"
+	p1: {
+		name: "PLAYER 1",
+		token: "X"
+	},
+	p2: {
+		name: "PLAYER 2",
+		token: "O"
+	}
 };
 
 // Constructor function for creating a cell.
 const Cell = function () {
 	this.value = "";
 	this.p1 = () => {
-		this.value = players.p1;
+		this.value = players.p1.token;
 	};
 	this.p2 = () => {
-		this.value = players.p2;
+		this.value = players.p2.token;
 	};
 };
 
@@ -37,9 +43,9 @@ const Board = function (size = 3) {
 	};
 
 	this.check = function (cell, player) {
-		// colCheck(cell, player);
-		// rowCheck(cell, player);
-		// diagonalACheck(cell, player);
+		colCheck(cell, player);
+		rowCheck(cell, player);
+		diagonalACheck(cell, player);
 		diagonalBCheck(cell, player);
 	};
 
@@ -48,7 +54,7 @@ const Board = function (size = 3) {
 		let position = cell;
 		let row = position[0] - 1;
 		const col = position[1];
-		const playersToken = players[player];
+		const playersToken = players[player].token;
 
 		while (row >= 0) {
 			if (this.cells[row][col].value === playersToken) {
@@ -78,7 +84,7 @@ const Board = function (size = 3) {
 		let position = cell;
 		const row = position[0];
 		let col = position[1] - 1;
-		const playersToken = players[player];
+		const playersToken = players[player].token;
 
 		while (col >= 0) {
 			if (this.cells[row][col].value === playersToken) {
@@ -108,7 +114,7 @@ const Board = function (size = 3) {
 		let position = cell;
 		let row = position[0] - 1;
 		let col = position[1] - 1;
-		const playersToken = players[player];
+		const playersToken = players[player].token;
 
 		while (row >= 0 && col >= 0) {
 			if (this.cells[row][col].value === playersToken) {
@@ -141,7 +147,7 @@ const Board = function (size = 3) {
 		let position = cell;
 		let row = position[0] - 1;
 		let col = position[1] + 1;
-		const playersToken = players[player];
+		const playersToken = players[player].token;
 
 		while (row >= 0 && col < this.cells.length) {
 			if (this.cells[row][col].value === playersToken) {
@@ -171,53 +177,65 @@ const Board = function (size = 3) {
 };
 
 ////////
-const boardSize = 3;
+let boardSize = Number(prompt("Enter Board Size 3 - 6: (default 3)"));
+boardSize = !boardSize ? 3 : boardSize;
+
 let gameOver = false;
 const board = new Board(boardSize);
-const numOfTurns = board.cells.length ** 2;
+// const numOfTurns = board.cells.length ** 2;
 let turnCounter = 0;
 let winner = "";
 
 const move = function (index, player) {
+	// console.log(index);
 	const pMove = index.map((x) => Number(x));
-	const cell = board.cells[pMove[0]][pMove[1]].value;
-	if (!cell) {
-		board.cells[pMove[0]][pMove[1]][player]();
-	} else {
-		console.log("UNAVAILABLE OPTION! CHOOSE ANOTHER CELL!");
-	}
-	console.log(player, turnCounter);
+	// const cell = board.cells[pMove[0]][pMove[1]].value;
+	// if (!cell) {
+	board.cells[pMove[0]][pMove[1]][player]();
+	// } else {
+	// 	console.log("UNAVAILABLE OPTION! CHOOSE ANOTHER CELL!");
+	// }
+	// console.log(player, turnCounter);
 	turnCounter++;
 	board.check(pMove, player);
 };
 
 const isGameOver = function () {
-	return turnCounter === numOfTurns ? true : false;
+	// return turnCounter === numOfTurns ? true : false;
+	if (gameOver) {
+		$(".cell").off("click").removeClass("cell");
+		$("#label").text(`WINNER: ${players[winner].name}`).addClass("winner");
+	} else if (turnCounter === boardSize ** 2) {
+		$(".cell").off("click").removeClass("cell");
+		$("#label").text("It's a draw!").addClass("draw");
+	}
 };
 
 ///// MAIN /////
-while (!gameOver && turnCounter < numOfTurns) {
-	//player1 turn:
-	//player2 turn:
-	let p1Move = prompt("Player 1 chooses: ");
-	p1Move = p1Move.split("");
-	move(p1Move, "p1");
+// const startGame = function () {
+// 	while (!gameOver && turnCounter < numOfTurns) {
+// 		//player1 turn:
+// 		//player2 turn:
+// 		let p1Move = prompt("Player 1 chooses: ");
+// 		p1Move = p1Move.split("");
+// 		move(p1Move, "p1");
 
-	if (gameOver || isGameOver()) break;
+// 		if (gameOver || isGameOver()) break;
 
-	let p2Move = prompt("Player 2 chooses: ");
-	p2Move = p2Move.split("");
-	move(p2Move, "p2");
+// 		let p2Move = prompt("Player 2 chooses: ");
+// 		p2Move = p2Move.split("");
+// 		move(p2Move, "p2");
 
-	// isGameOver = true;
-	// if (isGameOver) break;
-}
+// 		// isGameOver = true;
+// 		// if (isGameOver) break;
+// 	}
+// };
 
-if (!winner) {
-	console.log("IT'S A DRAW!");
-} else {
-	console.log(`${winner.toUpperCase()} WINS! CONGRATS!!`);
-}
+// if (!winner) {
+// 	console.log("IT'S A DRAW!");
+// } else {
+// 	console.log(`${winner.toUpperCase()} WINS! CONGRATS!!`);
+// }
 
 // const board = {
 // 	cells: [],

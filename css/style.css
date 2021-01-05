@@ -1,9 +1,50 @@
 .container {
 	height: 1000px;
+	/* width: ; */
+}
+
+h1 {
+	text-align: center;
+	margin: auto;
+}
+
+h2 {
+	text-align: center;
+	width: 30%;
+	margin: 20px auto;
 }
 
 table {
 	width: 50%;
 	height: 50%;
 	text-align: center;
+	margin: 0 auto;
+}
+
+tr td {
+	padding: 1em;
+	border-bottom: 2px solid black;
+	border-right: 2px solid black;
+	font-size: 4em;
+}
+
+.cell:hover {
+	background-color: aqua;
+	/* opacity: 0.4; */
+}
+
+tr td:last-child {
+	border-right: none;
+}
+
+tr:last-child td {
+	border-bottom: none;
+}
+
+.winner {
+	background-color: greenyellow;
+}
+
+.draw {
+	background-color: yellow;
 }
