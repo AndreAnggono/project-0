@@ -47,6 +47,7 @@ table {
 	margin: 0 auto;
 	/* box-sizing: border-box; */
 	border-collapse: collapse;
+	cursor: pointer;
 }
 
 tr td {
@@ -185,4 +186,8 @@ h2.winner {
 	font-size: 1.5em;
 	font-family: "Press Start 2P", cursive;
 	/* background-color: blue; */
+}
+
+button {
+	cursor: pointer;
 }
