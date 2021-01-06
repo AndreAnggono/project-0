@@ -29,13 +29,14 @@ h1 {
 }
 
 #restart-btn {
+	display: block;
 	color: #011627;
 	background-color: #fdfffc;
 	width: 220px;
 	height: 60px;
 	border-radius: 40px;
 	font-size: 1.5em;
-	margin-left: 47%;
+	margin: 0 auto;
 	margin-bottom: 100px;
 	font-family: "Press Start 2P", cursive;
 }
