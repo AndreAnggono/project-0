@@ -2,12 +2,12 @@
 const players = {
 	p1: {
 		name: "PLAYER 1",
-		token: "X"
+		token: "X",
 	},
 	p2: {
 		name: "PLAYER 2",
-		token: "O"
-	}
+		token: "O",
+	},
 };
 
 // Constructor function for creating a cell.
@@ -91,7 +91,7 @@ const Board = function (size = 3) {
 		// console.log("counter is", counter);
 		if (counter === this.cells.length) {
 			for (let cell of winPosition) {
-				$(`#c${cell}`).animate({ backgroundColor: "#3ff289" }, 2000);
+				$(`#c${cell}`).animate({ backgroundColor: "#06d6a0" }, 2000);
 			}
 			winner = player;
 			gameOver = true;
@@ -125,7 +125,7 @@ const Board = function (size = 3) {
 		// console.log("counter is", counter);
 		if (counter === this.cells.length) {
 			for (let cell of winPosition) {
-				$(`#c${cell}`).animate({ backgroundColor: "#3ff289" }, 2000);
+				$(`#c${cell}`).animate({ backgroundColor: "#06d6a0" }, 2000);
 			}
 			winner = player;
 			gameOver = true;
@@ -162,7 +162,7 @@ const Board = function (size = 3) {
 
 		if (counter === this.cells.length) {
 			for (let cell of winPosition) {
-				$(`#c${cell}`).animate({ backgroundColor: "#3ff289" }, 2000);
+				$(`#c${cell}`).animate({ backgroundColor: "#06d6a0" }, 2000);
 			}
 			winner = player;
 			gameOver = true;
@@ -199,7 +199,8 @@ const Board = function (size = 3) {
 
 		if (counter === this.cells.length) {
 			for (let cell of winPosition) {
-				$(`#c${cell}`).animate({ backgroundColor: "#3ff289" }, 2000);
+				// $(`#c${cell}`).animate({ backgroundColor: "#3ff289" }, 2000);
+				$(`#c${cell}`).animate({ backgroundColor: "#06d6a0" }, 2000);
 			}
 			winner = player;
 			gameOver = true;
@@ -211,7 +212,7 @@ const Board = function (size = 3) {
 // let boardSize = Number(prompt("Enter Board Size 3 - 6: (default 3)"));
 
 // boardSize = !boardSize || boardSize < 3 ? 3 : boardSize > 6 ? 6 : boardSize;
-let board, boardSize, timeOut, winner, gameOver, turnCounter;
+let board, boardSize, timeOut, winner, gameOver, turnCounter, blinkingPlayer;
 // let gameOver = false;
 // let board = new Board(boardSize);
 // let turnCounter = 0;
@@ -235,17 +236,22 @@ const move = function (index, player) {
 const isGameOver = function () {
 	// return turnCounter === numOfTurns ? true : false;
 	if (gameOver) {
-		$(".cell").off("click").removeClass("cell");
-		$("#label").text(`WINNER: ${players[winner].name}`).addClass("winner");
+		clearInterval(blinkingPlayer);
+		$(".cell").off("mouseenter mouseleave click").removeClass("cell");
+		// $("#label").text(`WINNER: ${players[winner].name}`).addClass("winner");
 		timeOut = setTimeout(function () {
+			popUpMessage("win");
 			$("#popup-display").show();
-		}, 10000);
+		}, 2000);
 	} else if (turnCounter === boardSize ** 2) {
+		gameOver = true;
+		clearInterval(blinkingPlayer);
 		$(".cell").off("click").removeClass("cell");
-		$("#label").text("It's a draw!").addClass("draw");
+		// $("#label").text("It's a draw!").addClass("draw");
 		timeOut = setTimeout(function () {
+			popUpMessage("draw");
 			$("#popup-display").show();
-		}, 10000);
+		}, 1500);
 	}
 };
 
