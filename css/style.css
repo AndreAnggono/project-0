@@ -96,10 +96,11 @@ tr:last-child td {
 #info-display {
 	z-index: 20;
 	position: absolute;
-	width: 40%;
+	width: 1100px;
 	height: 300px;
 	top: 30%;
-	left: 30%;
+	left: 50%;
+	transform: translateX(-50%);
 
 	border-radius: 40px;
 	display: flex;
