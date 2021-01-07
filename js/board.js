@@ -13,7 +13,7 @@ const players = {
 };
 
 // Constructor function for creating a cell.
-// It has a public property called value. This stores the player's token upon click / selection
+// It has a public property called value. This stores the player's token upon click / selection.
 // It has 2 public functions for Player 1 and Player 2. When invoked, it will set the targeted cell value with its token.
 const Cell = function () {
 	this.value = "";
@@ -26,7 +26,7 @@ const Cell = function () {
 };
 
 // Constructor function for creating a board.
-// It has 1 public property for cells. This stores a 2 dimensional array of cells generated from the Cells constructor function.
+// It has 1 public property for cells. This stores a 2 dimensional array of cells generated from the Cells constructor function. This is achieved by running a nested loop.
 // It has 2 public functions - Print() generates HTML tags accessing the DOM to print the board on screen.
 // Check () is the checking function that accesses 6 private functions.
 // It checks for Columns, Rows, DiagonalA (left top to bottom right), DiagonalB (top right to bottom left).
@@ -164,6 +164,13 @@ const Board = function (size = 3) {
 		playerWon(player);
 	};
 
+	const checkWinPos = (row, col) => {
+		if (this.cells[row][col].value === playersToken) {
+			winPosition.push(`${row}${col}`);
+			counter++;
+		} else return false;
+	};
+
 	const playerWon = (player) => {
 		if (counter === this.cells.length) {
 			for (let cell of winPosition) {
@@ -175,13 +182,6 @@ const Board = function (size = 3) {
 			$("#p1-score").text(players.p1.score);
 			$("#p2-score").text(players.p2.score);
 		}
-	};
-
-	const checkWinPos = (row, col) => {
-		if (this.cells[row][col].value === playersToken) {
-			winPosition.push(`${row}${col}`);
-			counter++;
-		} else return false;
 	};
 };
 
