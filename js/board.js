@@ -33,13 +33,6 @@ const Board = function (size = 3) {
 	}
 
 	this.print = function () {
-		// for (let rows of this.cells) {
-		// 	let row = [];
-		// 	for (let col of rows) {
-		// 		row.push(col.value);
-		// 	}
-		// 	console.log(row.join(" | "));
-		// }
 		const container = $(".container");
 		const table = $("<table></table>");
 
@@ -88,7 +81,7 @@ const Board = function (size = 3) {
 			} else break;
 			row++;
 		}
-		// console.log("counter is", counter);
+
 		if (counter === this.cells.length) {
 			for (let cell of winPosition) {
 				$(`#c${cell}`).animate({ backgroundColor: "#06d6a0" }, 2000);
@@ -122,7 +115,7 @@ const Board = function (size = 3) {
 			} else break;
 			col++;
 		}
-		// console.log("counter is", counter);
+
 		if (counter === this.cells.length) {
 			for (let cell of winPosition) {
 				$(`#c${cell}`).animate({ backgroundColor: "#06d6a0" }, 2000);
@@ -209,36 +202,19 @@ const Board = function (size = 3) {
 };
 
 ////////
-// let boardSize = Number(prompt("Enter Board Size 3 - 6: (default 3)"));
-
-// boardSize = !boardSize || boardSize < 3 ? 3 : boardSize > 6 ? 6 : boardSize;
-let board, boardSize, timeOut, winner, gameOver, turnCounter, blinkingPlayer;
-// let gameOver = false;
-// let board = new Board(boardSize);
-// let turnCounter = 0;
-// let winner = "";
-// const numOfTurns = board.cells.length ** 2;
+let board, boardSize, timeOut, winner, gameOver, turnCounter, blinkingPlayer, currPlayer, $player, cPlayer;
 
 const move = function (index, player) {
-	// console.log(index);
 	const pMove = index.map((x) => Number(x));
-	// const cell = board.cells[pMove[0]][pMove[1]].value;
-	// if (!cell) {
 	board.cells[pMove[0]][pMove[1]][player]();
-	// } else {
-	// 	console.log("UNAVAILABLE OPTION! CHOOSE ANOTHER CELL!");
-	// }
-	// console.log(player, turnCounter);
 	turnCounter++;
 	board.check(pMove, player);
 };
 
 const isGameOver = function () {
-	// return turnCounter === numOfTurns ? true : false;
 	if (gameOver) {
 		clearInterval(blinkingPlayer);
-		$(".cell").off("mouseenter mouseleave click").removeClass("cell");
-		// $("#label").text(`WINNER: ${players[winner].name}`).addClass("winner");
+		$(".cell").off("mouseenter mouseleave click").removeClass("cell").css({ cursor: "default" });
 		timeOut = setTimeout(function () {
 			popUpMessage("win");
 			$("#popup-display").show();
@@ -246,48 +222,10 @@ const isGameOver = function () {
 	} else if (turnCounter === boardSize ** 2) {
 		gameOver = true;
 		clearInterval(blinkingPlayer);
-		$(".cell").off("click").removeClass("cell");
-		// $("#label").text("It's a draw!").addClass("draw");
+		$(".cell").off("click").removeClass("cell").css({ cursor: "default" });
 		timeOut = setTimeout(function () {
 			popUpMessage("draw");
 			$("#popup-display").show();
 		}, 1500);
 	}
 };
-
-///// MAIN /////
-// const startGame = function () {
-// 	while (!gameOver && turnCounter < numOfTurns) {
-// 		//player1 turn:
-// 		//player2 turn:
-// 		let p1Move = prompt("Player 1 chooses: ");
-// 		p1Move = p1Move.split("");
-// 		move(p1Move, "p1");
-
-// 		if (gameOver || isGameOver()) break;
-
-// 		let p2Move = prompt("Player 2 chooses: ");
-// 		p2Move = p2Move.split("");
-// 		move(p2Move, "p2");
-
-// 		// isGameOver = true;
-// 		// if (isGameOver) break;
-// 	}
-// };
-
-// if (!winner) {
-// 	console.log("IT'S A DRAW!");
-// } else {
-// 	console.log(`${winner.toUpperCase()} WINS! CONGRATS!!`);
-// }
-
-// const board = {
-// 	cells: [],
-// 	print() {},
-// 	check: {
-// 		col() {},
-// 		row() {},
-// 		diagA() {},
-// 		diagB() {}
-// 	}
-// };
