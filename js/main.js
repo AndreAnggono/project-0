@@ -32,9 +32,9 @@ const start = function () {
 	$("#restart-btn").show();
 	$("table").remove();
 	board = new Board(boardSize);
-	$("#label").html('Your Turn : <span id="player"></span>').removeClass();
-	$player = $("#player");
-	blinkingPlayer = setInterval(blinkPlayer, 1000);
+	$("#label").html('<span id="player1">P1</span> - <span id="p1-score"></span> : <span id="p2-score"></span> - <span id="player2">P2</span>').removeClass();
+	$("#p1-score").text(players.p1.score);
+	$("#p2-score").text(players.p2.score);
 	board.print();
 	gameOver = false;
 	turnCounter = 0;
@@ -45,11 +45,12 @@ const start = function () {
 };
 
 const blinkPlayer = function () {
-	$("#player").fadeOut(500);
-	$("#player").fadeIn(500);
+	$player.fadeOut(500);
+	$player.fadeIn(500);
 };
 
 const turn = function () {
+	clearInterval(blinkingPlayer);
 	if (currPlayer === players.p1.name) {
 		currPlayer = players.p2.name;
 	} else if (currPlayer === players.p2.name) {
@@ -58,9 +59,11 @@ const turn = function () {
 		currPlayer = players.p1.name;
 	}
 
+	$player = $(`#player${currPlayer.slice(-1)}`);
+
 	if (!gameOver) {
 		cPlayer = `${currPlayer[0]}${currPlayer.slice(-1)}`.toLowerCase();
-		$player.text(currPlayer);
+		blinkingPlayer = setInterval(blinkPlayer, 1000);
 	}
 };
 

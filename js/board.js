@@ -3,10 +3,12 @@ const players = {
 	p1: {
 		name: "PLAYER 1",
 		token: "X",
+		score: 0,
 	},
 	p2: {
 		name: "PLAYER 2",
 		token: "O",
+		score: 0,
 	},
 };
 
@@ -24,6 +26,7 @@ const Cell = function () {
 // Constructor function for creating a board.
 const Board = function (size = 3) {
 	this.cells = [];
+	let counter, winPosition, playersToken;
 
 	for (let i = 0; i < size; i++) {
 		this.cells[i] = [];
@@ -58,86 +61,59 @@ const Board = function (size = 3) {
 	};
 
 	const colCheck = (cell, player) => {
-		let counter = 1;
 		let position = cell;
 		let row = position[0] - 1;
 		const col = position[1];
-		const playersToken = players[player].token;
-		const winPosition = [[`${cell.join("")}`]];
+		counter = 1;
+		playersToken = players[player].token;
+		winPosition = [`${cell.join("")}`];
 
 		while (row >= 0) {
-			if (this.cells[row][col].value === playersToken) {
-				winPosition.push(`${row}${col}`);
-				counter++;
-			} else break;
+			if (checkWinPos(row, col) === false) break;
 			row--;
 		}
 
 		row = position[0] + 1;
 		while (row < this.cells.length) {
-			if (this.cells[row][col].value === playersToken) {
-				winPosition.push(`${row}${col}`);
-				counter++;
-			} else break;
+			if (checkWinPos(row, col) === false) break;
 			row++;
 		}
 
-		if (counter === this.cells.length) {
-			for (let cell of winPosition) {
-				$(`#c${cell}`).animate({ backgroundColor: "#06d6a0" }, 2000);
-			}
-			winner = player;
-			gameOver = true;
-		}
+		playerWon(player);
 	};
 
 	const rowCheck = (cell, player) => {
-		let counter = 1;
 		let position = cell;
 		const row = position[0];
 		let col = position[1] - 1;
-		const playersToken = players[player].token;
-		const winPosition = [[`${cell.join("")}`]];
+		counter = 1;
+		playersToken = players[player].token;
+		winPosition = [`${cell.join("")}`];
 
 		while (col >= 0) {
-			if (this.cells[row][col].value === playersToken) {
-				winPosition.push(`${row}${col}`);
-				counter++;
-			} else break;
+			if (checkWinPos(row, col) === false) break;
 			col--;
 		}
 
 		col = position[1] + 1;
 		while (col < this.cells.length) {
-			if (this.cells[row][col].value === playersToken) {
-				winPosition.push(`${row}${col}`);
-				counter++;
-			} else break;
+			if (checkWinPos(row, col) === false) break;
 			col++;
 		}
 
-		if (counter === this.cells.length) {
-			for (let cell of winPosition) {
-				$(`#c${cell}`).animate({ backgroundColor: "#06d6a0" }, 2000);
-			}
-			winner = player;
-			gameOver = true;
-		}
+		playerWon(player);
 	};
 
 	const diagonalACheck = (cell, player) => {
-		let counter = 1;
 		let position = cell;
 		let row = position[0] - 1;
 		let col = position[1] - 1;
-		const playersToken = players[player].token;
-		const winPosition = [[`${cell.join("")}`]];
+		counter = 1;
+		playersToken = players[player].token;
+		winPosition = [[`${cell.join("")}`]];
 
 		while (row >= 0 && col >= 0) {
-			if (this.cells[row][col].value === playersToken) {
-				winPosition.push(`${row}${col}`);
-				counter++;
-			} else break;
+			if (checkWinPos(row, col) === false) break;
 			row--;
 			col--;
 		}
@@ -145,36 +121,24 @@ const Board = function (size = 3) {
 		row = position[0] + 1;
 		col = position[1] + 1;
 		while (row < this.cells.length && col < this.cells.length) {
-			if (this.cells[row][col].value === playersToken) {
-				winPosition.push(`${row}${col}`);
-				counter++;
-			} else break;
+			if (checkWinPos(row, col) === false) break;
 			row++;
 			col++;
 		}
 
-		if (counter === this.cells.length) {
-			for (let cell of winPosition) {
-				$(`#c${cell}`).animate({ backgroundColor: "#06d6a0" }, 2000);
-			}
-			winner = player;
-			gameOver = true;
-		}
+		playerWon(player);
 	};
 
 	const diagonalBCheck = (cell, player) => {
-		let counter = 1;
 		let position = cell;
 		let row = position[0] - 1;
 		let col = position[1] + 1;
-		const playersToken = players[player].token;
-		const winPosition = [[`${cell.join("")}`]];
+		counter = 1;
+		playersToken = players[player].token;
+		winPosition = [[`${cell.join("")}`]];
 
 		while (row >= 0 && col < this.cells.length) {
-			if (this.cells[row][col].value === playersToken) {
-				winPosition.push(`${row}${col}`);
-				counter++;
-			} else break;
+			if (checkWinPos(row, col) === false) break;
 			row--;
 			col++;
 		}
@@ -182,26 +146,36 @@ const Board = function (size = 3) {
 		row = position[0] + 1;
 		col = position[1] - 1;
 		while (row < this.cells.length && col >= 0) {
-			if (this.cells[row][col].value === playersToken) {
-				winPosition.push(`${row}${col}`);
-				counter++;
-			} else break;
+			if (checkWinPos(row, col) === false) break;
 			row++;
 			col--;
 		}
 
+		playerWon(player);
+	};
+
+	const playerWon = (player) => {
 		if (counter === this.cells.length) {
 			for (let cell of winPosition) {
-				// $(`#c${cell}`).animate({ backgroundColor: "#3ff289" }, 2000);
 				$(`#c${cell}`).animate({ backgroundColor: "#06d6a0" }, 2000);
 			}
 			winner = player;
 			gameOver = true;
+			players[player].score++;
+			$("#p1-score").text(players.p1.score);
+			$("#p2-score").text(players.p2.score);
 		}
+	};
+
+	const checkWinPos = (row, col) => {
+		if (this.cells[row][col].value === playersToken) {
+			winPosition.push(`${row}${col}`);
+			counter++;
+		} else return false;
 	};
 };
 
-////////
+// Variable Declaration - Global Scope
 let board, boardSize, timeOut, winner, gameOver, turnCounter, blinkingPlayer, currPlayer, $player, cPlayer;
 
 const move = function (index, player) {

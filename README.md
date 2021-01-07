@@ -1,8 +1,12 @@
-# Project 0
-
-## Tic Tac Toe
+# Project 0 - Tic Tac Toe
 
 ### Sub sub headings
+
+Cells are created via a constructor function.
+
+Board game is created via a constructor function.
+
+
 
 Lists
 * A
