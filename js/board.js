@@ -1,4 +1,4 @@
-// Players object to store player symbol / token.
+// Players object to store player's name, symbol / token, and score.
 const players = {
 	p1: {
 		name: "PLAYER 1",
@@ -13,6 +13,8 @@ const players = {
 };
 
 // Constructor function for creating a cell.
+// It has a public property called value. This stores the player's token upon click / selection
+// It has 2 public functions for Player 1 and Player 2. When invoked, it will set the targeted cell value with its token.
 const Cell = function () {
 	this.value = "";
 	this.p1 = () => {
@@ -24,6 +26,14 @@ const Cell = function () {
 };
 
 // Constructor function for creating a board.
+// It has 1 public property for cells. This stores a 2 dimensional array of cells generated from the Cells constructor function.
+// It has 2 public functions - Print() generates HTML tags accessing the DOM to print the board on screen.
+// Check () is the checking function that accesses 6 private functions.
+// It checks for Columns, Rows, DiagonalA (left top to bottom right), DiagonalB (top right to bottom left).
+// The other two private functions helps with checks for the above functions. This helps with keeping the code DRYer.
+// --
+// This board can expand to as big as you want it to be. Both the checking algorithm and the board / cell generation can dynamically grow.
+// --
 const Board = function (size = 3) {
 	this.cells = [];
 	let counter, winPosition, playersToken;
@@ -178,6 +188,9 @@ const Board = function (size = 3) {
 // Variable Declaration - Global Scope
 let board, boardSize, timeOut, winner, gameOver, turnCounter, blinkingPlayer, currPlayer, $player, cPlayer;
 
+// This function triggers / sets the players selection as a move.
+// It is done by targeting the cell 2D array and invoking the current player's public function.
+// It then checks for a winning combo and keeps track of the number of turns via a counter.
 const move = function (index, player) {
 	const pMove = index.map((x) => Number(x));
 	board.cells[pMove[0]][pMove[1]][player]();

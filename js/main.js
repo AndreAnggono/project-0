@@ -9,6 +9,26 @@ $(document).ready(function () {
 	});
 });
 
+// This function intialises the game.
+// Generates new board (and cells within it) via constructor functions and setup the layout game display such as printing the board and headings.
+const start = function () {
+	$(".container").show();
+	$("#restart-btn").show();
+	$("table").remove();
+	board = new Board(boardSize);
+	$("#label").html('<span id="player1">P1</span> - <span id="p1-score"></span> : <span id="p2-score"></span> - <span id="player2">P2</span>').removeClass();
+	$("#p1-score").text(players.p1.score);
+	$("#p2-score").text(players.p2.score);
+	board.print();
+	gameOver = false;
+	turnCounter = 0;
+	winner = "";
+	currPlayer = "";
+	turn();
+	main();
+};
+
+// This main function sets up event listeners targeting each cells. This animates a silhouette of the player's token on hover and remove all event listeners on click.
 const main = function () {
 	$(".cell")
 		.on("click", function () {
@@ -27,28 +47,13 @@ const main = function () {
 		);
 };
 
-const start = function () {
-	$(".container").show();
-	$("#restart-btn").show();
-	$("table").remove();
-	board = new Board(boardSize);
-	$("#label").html('<span id="player1">P1</span> - <span id="p1-score"></span> : <span id="p2-score"></span> - <span id="player2">P2</span>').removeClass();
-	$("#p1-score").text(players.p1.score);
-	$("#p2-score").text(players.p2.score);
-	board.print();
-	gameOver = false;
-	turnCounter = 0;
-	winner = "";
-	currPlayer = "";
-	turn();
-	main();
-};
-
+// This function is invoked by the turn() function. The target changes based on the current player's turn.
 const blinkPlayer = function () {
 	$player.fadeOut(500);
 	$player.fadeIn(500);
 };
 
+// This function alternates the players turn. Clear interval removes current blinking animation and re-adds it to the next player's name.
 const turn = function () {
 	clearInterval(blinkingPlayer);
 	if (currPlayer === players.p1.name) {
@@ -67,6 +72,9 @@ const turn = function () {
 	}
 };
 
+// This function checks if the game is over or not.
+// If it is: remove animation, remove event listeners, wait for a set time period and display the appropriate display message.
+// Two scenarios: A player wins. Or no one wins and it's a draw.
 const isGameOver = function () {
 	if (gameOver) {
 		clearInterval(blinkingPlayer);
@@ -86,6 +94,8 @@ const isGameOver = function () {
 	}
 };
 
+// Generating HTML tags via jQuery for the popup display menu, win, and draw message.
+// First one is for the Win and Draw display message. Second one is for the Choose Board Size menu display message.
 const popUpMessage = function (msg) {
 	if (msg === "win" || msg === "draw") {
 		const clsBtn = $("<button></button>")
