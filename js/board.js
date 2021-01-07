@@ -184,22 +184,3 @@ const move = function (index, player) {
 	turnCounter++;
 	board.check(pMove, player);
 };
-
-const isGameOver = function () {
-	if (gameOver) {
-		clearInterval(blinkingPlayer);
-		$(".cell").off("mouseenter mouseleave click").removeClass("cell").css({ cursor: "default" });
-		timeOut = setTimeout(function () {
-			popUpMessage("win");
-			$("#popup-display").show();
-		}, 2000);
-	} else if (turnCounter === boardSize ** 2) {
-		gameOver = true;
-		clearInterval(blinkingPlayer);
-		$(".cell").off("click").removeClass("cell").css({ cursor: "default" });
-		timeOut = setTimeout(function () {
-			popUpMessage("draw");
-			$("#popup-display").show();
-		}, 1500);
-	}
-};

@@ -67,6 +67,25 @@ const turn = function () {
 	}
 };
 
+const isGameOver = function () {
+	if (gameOver) {
+		clearInterval(blinkingPlayer);
+		$(".cell").off("mouseenter mouseleave click").removeClass("cell").css({ cursor: "default" });
+		timeOut = setTimeout(function () {
+			popUpMessage("win");
+			$("#popup-display").show();
+		}, 2000);
+	} else if (turnCounter === boardSize ** 2) {
+		gameOver = true;
+		clearInterval(blinkingPlayer);
+		$(".cell").off("click").removeClass("cell").css({ cursor: "default" });
+		timeOut = setTimeout(function () {
+			popUpMessage("draw");
+			$("#popup-display").show();
+		}, 1500);
+	}
+};
+
 const popUpMessage = function (msg) {
 	if (msg === "win" || msg === "draw") {
 		const clsBtn = $("<button></button>")

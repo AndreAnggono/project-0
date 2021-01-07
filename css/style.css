@@ -15,8 +15,8 @@ h1 {
 #label {
 	font-size: 2em;
 	text-align: center;
-	width: 30%;
-	margin-left: 35%;
+	/* width: 30%; */
+	/* margin-left: 35%; */
 	margin-bottom: 45px;
 	display: block;
 }
@@ -159,7 +159,7 @@ h2.pdisplay {
 	margin-bottom: 1.4em;
 }
 
-.pdisplay button {
+button.pdisplay {
 	color: #011627;
 	background-color: #fdfffc;
 	width: 48%;
@@ -176,4 +176,67 @@ button {
 
 button:hover {
 	box-shadow: 0 0 15px black;
+}
+
+@media (max-width: 1620px) {
+	h1 {
+		font-size: 4em;
+	}
+
+	#label {
+		font-size: 1.4em;
+	}
+
+	#restart-btn {
+		width: 145px;
+		height: 42px;
+		font-size: 1em;
+	}
+
+	tr td {
+		width: 200px;
+		height: 200px;
+		font-size: 60px;
+	}
+
+	#info-display {
+		width: 800px;
+	}
+
+	h1.pdisplay {
+		font-size: 2em;
+	}
+
+	h2.pdisplay {
+		font-size: 1.5em;
+	}
+
+	#div-pdisplay-btn {
+		justify-content: space-evenly;
+	}
+
+	button.pdisplay {
+		font-size: 0.8em;
+	}
+
+	#grid-buttons {
+		font-size: 1em;
+		justify-content: space-between;
+		align-content: space-around;
+		width: 58%;
+		height: 104px;
+	}
+
+	#grid-buttons div:nth-of-type(even) {
+		margin-top: 0;
+	}
+	#grid-buttons input {
+		transform: scale(1.5);
+	}
+
+	#start-btn {
+		width: 24%;
+		height: 15%;
+		font-size: 1em;
+	}
 }
