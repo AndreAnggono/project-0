@@ -9,6 +9,8 @@ This includes:
 * DOM manipulation and Animation- jQuery
 * Dynamic and Efficient Algorithm
 
+[Link to the game here](https://andreanggono.github.io/project-0/ "Tic Tac Toe")
+
 ## Game Code Details
 ### Cells
 Cells are created via a constructor function `Cell()`.
@@ -42,7 +44,7 @@ The checking function is a public function within the `Board()` constructor func
     * Column - `colCheck(cell, player)` , checks for columns.
     * Row - `rowCheck(cell, player)` , checks for rows.
     * DiagonalA - `diagonalACheck(cell, player)` , checks for diagonal left top to bottom right.
-    * DiagonalB () - `diagonalBCheck(cell, player)` , checks for diagonal top right to bottom left.
+    * DiagonalB - `diagonalBCheck(cell, player)` , checks for diagonal top right to bottom left.
 
 #### Algorithm
 The algorithm is dynamic and can grow to accomodate for boards of any sizes. This is achieved by setting boundries where the it can continue checking. The lowest boundary is `0`, any lower it goes out of bounds. The highest boundary is the `boardSize - 1`, if it goes to the board size or higher it goes out of bounds. This approach follows the boundaries of arrays.
