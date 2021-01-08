@@ -55,3 +55,4 @@ It was also designed with efficiency in mind. For it to be efficient, it will fi
 * Add new winning combos. For example 4 x 4 board, you can win by creating a square of 4 cells.
 * Add a save game feature to continue the game at a later time.
 * Add a load game feature to load a saved game.
+* Add a choose board button in game so players can change it mid game.
