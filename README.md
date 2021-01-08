@@ -1,5 +1,5 @@
 # Project 0 - Tic Tac Toe
-## Intro
+## Introduction
 This is the first project at General Assembly. 
 
 My aim was to incorporate different techniques learned in the first two weeks at GA.
